@@ -1,31 +1,17 @@
 package com.asneiya.neobyte.umkmdepok;
 
-import android.app.ProgressDialog;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
-import com.asneiya.neobyte.umkmdepok.SimpleXmlVolleyRequest;
-import com.asneiya.neobyte.umkmdepok.model.RSS.FeedItem;
-import com.asneiya.neobyte.umkmdepok.model.RSS.Rss;
-import com.asneiya.neobyte.umkmdepok.ui.RSS.feed.ItemFeedAdapter;
 import com.asneiya.neobyte.umkmdepok.ui.TabPager.TabAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -86,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         final ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Home"));
-        tabLayout.addTab(tabLayout.newTab().setText("Hot List UKM"));
+        tabLayout.addTab(tabLayout.newTab().setText("Kategori UMKM"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final TabAdapter adapter = new TabAdapter
