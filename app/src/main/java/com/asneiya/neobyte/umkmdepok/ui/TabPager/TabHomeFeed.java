@@ -64,7 +64,7 @@ public class TabHomeFeed extends Fragment {
             @Override
             public void onResponse(Rss response) {
                 Log.d(TAG, response.toString());
-                mProgressDialog.hide();
+                mProgressDialog.dismiss();
 
                 if (response != null && response.channel != null && response.channel.items != null) {
                     ItemFeedAdapter ifa = new ItemFeedAdapter(response.channel.items,
@@ -81,7 +81,7 @@ public class TabHomeFeed extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d(TAG, "Error: " + error.getMessage());
-                mProgressDialog.hide();
+                mProgressDialog.dismiss();
             }
         });
 
