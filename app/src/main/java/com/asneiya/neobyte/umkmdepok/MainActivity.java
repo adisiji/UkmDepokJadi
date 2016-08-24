@@ -1,5 +1,6 @@
 package com.asneiya.neobyte.umkmdepok;
 
+import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
@@ -7,11 +8,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.android.volley.toolbox.ImageLoader;
-import com.asneiya.neobyte.umkmdepok.ui.TabPager.TabAdapter;
+import com.asneiya.neobyte.umkmdepok.ui.adapter.TabAdapter;
+import com.asneiya.neobyte.umkmdepok.ui.search.Search_act;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,8 +34,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.only_search_icon, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_search_main:
+                Intent i = new Intent(this, Search_act.class);
+                startActivity(i);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     /**
@@ -71,8 +86,8 @@ public class MainActivity extends AppCompatActivity {
     private void setTab(){
         final ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
-        tabLayout.addTab(tabLayout.newTab().setText("Home"));
-        tabLayout.addTab(tabLayout.newTab().setText("Kategori UMKM"));
+        tabLayout.addTab(tabLayout.newTab().setText("Berita"));
+        tabLayout.addTab(tabLayout.newTab().setText("Kategori"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
         final TabAdapter adapter = new TabAdapter

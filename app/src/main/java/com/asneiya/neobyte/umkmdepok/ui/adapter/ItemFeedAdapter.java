@@ -1,4 +1,4 @@
-package com.asneiya.neobyte.umkmdepok.ui.RSS.feed;
+package com.asneiya.neobyte.umkmdepok.ui.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

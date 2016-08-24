@@ -1,8 +1,11 @@
-package com.asneiya.neobyte.umkmdepok.ui.TabPager;
+package com.asneiya.neobyte.umkmdepok.ui.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+
+import com.asneiya.neobyte.umkmdepok.ui.TabPager.TabHomeFeed;
+import com.asneiya.neobyte.umkmdepok.ui.TabPager.TabHotUkm;
 
 /**
  * Created by neobyte on 8/24/2016.

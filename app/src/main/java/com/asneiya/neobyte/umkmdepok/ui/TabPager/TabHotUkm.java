@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.asneiya.neobyte.umkmdepok.R;
-import com.asneiya.neobyte.umkmdepok.ui.kategori.AdapterKategori;
+import com.asneiya.neobyte.umkmdepok.ui.adapter.AdapterKategori;
 
 /**
  * Created by neobyte on 8/24/2016.
@@ -27,6 +27,7 @@ public class TabHotUkm extends Fragment {
             "KitKat",
             "Lollipop",
             "Marshmallow"};
+    private static final int[] idKategori={1,2,3,4,5,9,9,9,9};
     private static final String [] prgmImages={
             "http://api.learn2crack.com/android/images/eclair.png",
             "http://api.learn2crack.com/android/images/froyo.png",
@@ -50,7 +51,7 @@ public class TabHotUkm extends Fragment {
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this.getContext(),3);
         recyclerView.setLayoutManager(layoutManager);
-        AdapterKategori adapter = new AdapterKategori(this.getContext(),prgmNameList,prgmImages);
+        AdapterKategori adapter = new AdapterKategori(this.getContext(),prgmNameList,prgmImages,idKategori);
         recyclerView.setAdapter(adapter);
     }
 }

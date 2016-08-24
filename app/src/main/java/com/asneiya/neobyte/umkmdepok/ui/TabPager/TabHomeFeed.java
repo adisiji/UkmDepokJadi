@@ -22,7 +22,7 @@ import com.asneiya.neobyte.umkmdepok.SimpleXmlVolleyRequest;
 import com.asneiya.neobyte.umkmdepok.model.RSS.FeedItem;
 import com.asneiya.neobyte.umkmdepok.model.RSS.Rss;
 import com.asneiya.neobyte.umkmdepok.singleVolley;
-import com.asneiya.neobyte.umkmdepok.ui.RSS.feed.ItemFeedAdapter;
+import com.asneiya.neobyte.umkmdepok.ui.adapter.ItemFeedAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
