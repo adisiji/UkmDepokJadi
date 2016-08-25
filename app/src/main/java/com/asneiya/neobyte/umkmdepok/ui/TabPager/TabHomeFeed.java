@@ -23,6 +23,7 @@ import com.asneiya.neobyte.umkmdepok.model.RSS.FeedItem;
 import com.asneiya.neobyte.umkmdepok.model.RSS.Rss;
 import com.asneiya.neobyte.umkmdepok.singleVolley;
 import com.asneiya.neobyte.umkmdepok.ui.adapter.ItemFeedAdapter;
+import com.asneiya.neobyte.umkmdepok.ui.isi_artikel_rss;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,7 @@ public class TabHomeFeed extends Fragment {
             = new ItemFeedAdapter.OnFeedItemClickListener() {
         @Override
         public void onItemClicked(final FeedItem item) {
-            Log.d(TAG,item.getTitle());
+            isi_artikel_rss.launch(getActivity(),item.getLink(),item.getTitle());
         }
     };
 

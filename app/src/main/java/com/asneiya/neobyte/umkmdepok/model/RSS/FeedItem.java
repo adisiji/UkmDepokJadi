@@ -21,9 +21,9 @@ public class FeedItem {
     @Element(required = false)
     private String pubDate;
 
-    @Namespace(prefix = "media")
-    @Element(name = "content", required = false)
-    public MediaContent mediaContent;
+    @Path("link")
+    @Text(required=false)
+    private String link = "";
 
     @ElementList(entry = "category", inline = true, required = false)
     public List<String> categories;
@@ -34,6 +34,10 @@ public class FeedItem {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getLink() {
+        return link;
     }
 
     public String getDescription() {

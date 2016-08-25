@@ -18,6 +18,11 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ui.isi_artikel_rss"
+            android:theme="@style/AppTheme2"
+            android:parentActivityName=".MainActivity">
+        </activity>
+        <activity
             android:name=".ui.search.Search_act"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme2">
