@@ -1,4 +1,4 @@
-package com.asneiya.neobyte.umkmdepok;
+package com.asneiya.neobyte.umkmdepok.ui;
 
 import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
@@ -12,8 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.android.volley.toolbox.ImageLoader;
+import com.asneiya.neobyte.umkmdepok.R;
 import com.asneiya.neobyte.umkmdepok.ui.adapter.TabAdapter;
-import com.asneiya.neobyte.umkmdepok.ui.search.Search_act;
 
 public class MainActivity extends AppCompatActivity {
 

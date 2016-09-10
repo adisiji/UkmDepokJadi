@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.asneiya.neobyte.umkmdepok.ui.search.Search_act">
+    tools:context=".ui.Search_act">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/RV_search_Act"

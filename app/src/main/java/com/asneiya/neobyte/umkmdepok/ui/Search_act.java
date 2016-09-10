@@ -1,4 +1,4 @@
-package com.asneiya.neobyte.umkmdepok.ui.search;
+package com.asneiya.neobyte.umkmdepok.ui;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -6,7 +6,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
@@ -18,7 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.asneiya.neobyte.umkmdepok.R;
 import com.asneiya.neobyte.umkmdepok.model.umkm.ContentUmkm;
-import com.asneiya.neobyte.umkmdepok.singleVolley;
+import com.asneiya.neobyte.umkmdepok.ui.util.singleVolley;
 import com.asneiya.neobyte.umkmdepok.ui.adapter.AdapterSearchResult;
 
 import org.json.JSONArray;

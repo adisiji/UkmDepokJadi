@@ -30,7 +30,7 @@ public class FeedItem {
 
     @Path("description")
     @Text(required=false)
-    public String description = "";
+    private String description = "";
 
     public String getTitle() {
         return title;

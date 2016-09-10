@@ -10,27 +10,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.asneiya.neobyte.umkmdepok.R;
-import com.asneiya.neobyte.umkmdepok.intface.OnItemClickListener;
-import com.asneiya.neobyte.umkmdepok.ui.search.Search_act;
+import com.asneiya.neobyte.umkmdepok.model.RSS.FeedItem;
+import com.asneiya.neobyte.umkmdepok.model.umkm.ItemKategori;
+import com.asneiya.neobyte.umkmdepok.ui.Search_act;
+import com.asneiya.neobyte.umkmdepok.ui.util.aturKlik;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 /**
  * Created by neobyte on 8/24/2016.
  */
 public class AdapterKategori extends RecyclerView.Adapter<AdapterKategori.ViewHolder> {
 
-        String [] nama;
-        Context context;
-        String [] imageId;
-        int[] kategori;
-        private OnItemClickListener listener;
+        private final List<ItemKategori> item;
+        private final Context context;
+        private final aturKlik.kategori onKatItemClickListener;
 
-        public AdapterKategori(Context context, String[] catNameList, String[] prgmImages, int[] kategori) {
+        public AdapterKategori(final Context context, final List<ItemKategori> item, aturKlik.kategori itemclick) {
             // TODO Auto-generated constructor stub
-            nama=catNameList;
+            this.item = item;
             this.context=context;
-            imageId=prgmImages;
-            this.kategori = kategori;
+            onKatItemClickListener = itemclick;
         }
 
 
@@ -41,37 +42,44 @@ public class AdapterKategori extends RecyclerView.Adapter<AdapterKategori.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(AdapterKategori.ViewHolder viewHolder, int i) {
-
-        viewHolder.nama_kat.setText(nama[i]);
-        Picasso.with(context).load(imageId[i])
+    public void onBindViewHolder(AdapterKategori.ViewHolder holder, int i) {
+        holder.bindItem(item.get(i), onKatItemClickListener);
+        Picasso.with(context).load(item.get(i).getImage())
                 .resize(250,200)
                 .centerInside()
-                .into(viewHolder.img_kat);
-
+                .into(holder.img_kat);
     }
 
     @Override
     public int getItemCount() {
-        return nama.length;
+        return item.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView nama_kat;
-        private ImageView img_kat;
-        public ViewHolder(View view) {
+    static class ViewHolder extends RecyclerView.ViewHolder{
+
+        private final View rootView;
+        private final TextView nama_kat;
+        private final ImageView img_kat;
+
+        ViewHolder (View view){
             super(view);
+            rootView = view;
             nama_kat = (TextView)view.findViewById(R.id.nama_kategori);
             img_kat = (ImageView) view.findViewById(R.id.imgKategori);
-            view.setOnClickListener(new View.OnClickListener() {
+
+        }
+
+        /**
+         * Bind a FeedItem data model to the View
+         */
+        void bindItem(final ItemKategori feedItem, final aturKlik.kategori clickListener) {
+            rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
-                    int pos = getLayoutPosition();
-                    Intent i = new Intent(context, Search_act.class);
-                    i.putExtra("idKat",kategori[pos]);
-                    context.startActivity(i);
+                public void onClick(final View v) {
+                    clickListener.onItemClicked(feedItem);
                 }
             });
+            nama_kat.setText(feedItem.getNama());
         }
     }
 

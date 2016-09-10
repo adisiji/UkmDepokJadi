@@ -14,19 +14,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.asneiya.neobyte.umkmdepok.R;
-import com.asneiya.neobyte.umkmdepok.SimpleXmlVolleyRequest;
+import com.asneiya.neobyte.umkmdepok.ui.util.SimpleXMLRetro;
 import com.asneiya.neobyte.umkmdepok.model.RSS.FeedItem;
 import com.asneiya.neobyte.umkmdepok.model.RSS.Rss;
-import com.asneiya.neobyte.umkmdepok.singleVolley;
 import com.asneiya.neobyte.umkmdepok.ui.adapter.ItemFeedAdapter;
 import com.asneiya.neobyte.umkmdepok.ui.isi_artikel_rss;
+import com.asneiya.neobyte.umkmdepok.ui.util.aturKlik;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class TabHomeFeed extends Fragment {
 
@@ -35,10 +35,9 @@ public class TabHomeFeed extends Fragment {
     private ProgressDialog mProgressDialog;
     private final static String url = "http://ukmdepok.co.id/feed/";
     private List<FeedItem> feedItems = new ArrayList<FeedItem>();
-    private final ItemFeedAdapter.OnFeedItemClickListener onFeedItemClickListener
-            = new ItemFeedAdapter.OnFeedItemClickListener() {
+    private final aturKlik.itemfeed onFeedItemClickListener = new aturKlik.itemfeed() {
         @Override
-        public void onItemClicked(final FeedItem item) {
+        public void onItemClicked(FeedItem item) {
             isi_artikel_rss.launch(getActivity(),item.getLink(),item.getTitle());
         }
     };
@@ -50,43 +49,45 @@ public class TabHomeFeed extends Fragment {
         feedRecyclerView.setHasFixedSize(true);
         feedRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mProgressDialog = new ProgressDialog(getActivity());
-        requestFeed();
+        mProgressDialog.setMessage(getString(R.string.loading));
+        mProgressDialog.show();
+        retroFeed();
         return rootView;
     }
 
-
-    private void requestFeed() {
-
-        mProgressDialog.setMessage(getString(R.string.loading));
-        mProgressDialog.show();
-
-        SimpleXmlVolleyRequest<Rss> strReq = new SimpleXmlVolleyRequest(Request.Method.GET, url, Rss.class, new Response.Listener<Rss>() {
-
+    private void retroFeed(){
+        siapi().getfeeedItems().enqueue(new Callback<Rss>() {
             @Override
-            public void onResponse(Rss response) {
+            public void onResponse(Call<Rss> call, retrofit2.Response<Rss> response) {
+                Rss respon = response.body();
                 Log.d(TAG, response.toString());
-                mProgressDialog.dismiss();
-
-                if (response != null && response.channel != null && response.channel.items != null) {
-                    ItemFeedAdapter ifa = new ItemFeedAdapter(response.channel.items,
-                            onFeedItemClickListener);
-                    // add more items to the list
-                    feedItems.addAll(response.channel.items);
-                    feedRecyclerView.setAdapter(ifa);
-                    ifa.notifyDataSetChanged();
-
-                }
+                hasilok(respon);
             }
-        }, new Response.ErrorListener() {
 
             @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d(TAG, "Error: " + error.getMessage());
+            public void onFailure(Call<Rss> call, Throwable t) {
+                Log.d(TAG, "Error: " + t.getMessage());
                 mProgressDialog.dismiss();
             }
         });
+    }
 
-        // Adding request to request queue
-        singleVolley.getInstance(getActivity()).add(strReq);
+    private SimpleXMLRetro.SiteAPI siapi(){
+        SimpleXMLRetro.SiteAPI x =  ((SimpleXMLRetro)getActivity().getApplication()).getSiteApi();
+        if(x==null)
+            Log.d("error coi","di siapi");
+        return x;
+    }
+
+    private void hasilok(Rss respon){
+        mProgressDialog.dismiss();
+        if ( respon.channel != null && respon.channel.items != null) {
+            ItemFeedAdapter ifa = new ItemFeedAdapter(respon.channel.items,
+                    onFeedItemClickListener);
+            // add more items to the list
+            feedItems.addAll(respon.channel.items);
+            feedRecyclerView.setAdapter(ifa);
+            ifa.notifyDataSetChanged();
+        }
     }
 }

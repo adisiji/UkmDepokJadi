@@ -1,7 +1,6 @@
 package com.asneiya.neobyte.umkmdepok.ui.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.asneiya.neobyte.umkmdepok.R;
-import com.asneiya.neobyte.umkmdepok.intface.OnItemClickListener;
 import com.asneiya.neobyte.umkmdepok.model.umkm.ContentUmkm;
-import com.asneiya.neobyte.umkmdepok.ui.search.Search_act;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -26,8 +23,6 @@ public class AdapterSearchResult extends RecyclerView.Adapter<AdapterSearchResul
 
         List<ContentUmkm> konten = new ArrayList<>();
         Context context;
-
-        private OnItemClickListener listener;
 
         public AdapterSearchResult(Context context, List<ContentUmkm> data) {
             konten = data;

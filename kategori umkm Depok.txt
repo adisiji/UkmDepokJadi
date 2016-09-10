@@ -1,0 +1,29 @@
+tipe : Mikro < Kecil < Menengah
+Kuliner
+Jasa
+Handycraft
+Fashion
+Perbengkelan
+
+show_kat.php
+<?php
+    include_once './db_connect.php';
+
+    // connecting to database
+    $db = new DB_Connect();
+    $con = $db->connect();
+
+    //fetch table rows from mysql db
+    $sql = "select * from list_umkm where id_kategori=$_GET['kat']";
+    $result = mysqli_query($con, $sql);
+
+    //create an array
+    $emparray = array();
+    while($row = mysqli_fetch_assoc($result))
+    {
+        $emparray[] = $row;
+    }
+    echo json_encode($emparray);
+    
+    $db->close();
+}

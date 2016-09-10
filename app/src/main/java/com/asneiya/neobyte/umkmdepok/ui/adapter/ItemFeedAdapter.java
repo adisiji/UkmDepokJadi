@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.asneiya.neobyte.umkmdepok.R;
 import com.asneiya.neobyte.umkmdepok.model.RSS.FeedItem;
+import com.asneiya.neobyte.umkmdepok.ui.util.aturKlik;
 
 import java.util.List;
 
@@ -17,10 +18,10 @@ import java.util.List;
 public class ItemFeedAdapter extends RecyclerView.Adapter<ItemFeedAdapter.ViewHolder> {
 
     private final List<FeedItem> dataset;
-    private final OnFeedItemClickListener onFeedItemClickListener;
+    private final aturKlik.itemfeed onFeedItemClickListener;
 
     public ItemFeedAdapter(final List<FeedItem> dataset,
-                           OnFeedItemClickListener onFeedItemClickListener) {
+                           aturKlik.itemfeed onFeedItemClickListener) {
         this.dataset = dataset;
         this.onFeedItemClickListener = onFeedItemClickListener;
     }
@@ -47,14 +48,6 @@ public class ItemFeedAdapter extends RecyclerView.Adapter<ItemFeedAdapter.ViewHo
     }
 
     /**
-     * An callback interface to notify when a feed item is clicked
-     */
-    public interface OnFeedItemClickListener {
-
-        void onItemClicked(FeedItem item);
-    }
-
-    /**
      * A recycleable representation of a View entity
      */
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -73,7 +66,7 @@ public class ItemFeedAdapter extends RecyclerView.Adapter<ItemFeedAdapter.ViewHo
         /**
          * Bind a FeedItem data model to the View
          */
-        void bindItem(final FeedItem feedItem, final OnFeedItemClickListener clickListener) {
+        void bindItem(final FeedItem feedItem, final aturKlik.itemfeed clickListener) {
             rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View v) {
