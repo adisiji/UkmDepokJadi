@@ -1,7 +1,10 @@
 package com.asneiya.neobyte.umkmdepok.ui.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,11 +44,19 @@ public class AdapterSearchResult extends RecyclerView.Adapter<AdapterSearchResul
 
         viewHolder.nama_umkm.setText(konten.get(i).getNama());
         viewHolder.nama_pemilik.setText(konten.get(i).getPemilik());
-        Picasso.with(context).load(konten.get(i).getLogo())
-                .resize(250,200)
-                .centerInside()
-                .error(R.drawable.close)
-                .into(viewHolder.img_umkm);
+        String logo = konten.get(i).getLogo();
+        if(logo!=null){
+            Picasso.with(context).load(konten.get(i).getLogo())
+                    .resize(250,200)
+                    .centerInside()
+                    .error(R.drawable.close)
+                    .into(viewHolder.img_umkm);
+        }
+        else
+        {
+            Drawable dr = ContextCompat.getDrawable(context,R.drawable.close);
+            viewHolder.img_umkm.setImageDrawable(dr);
+        }
 
     }
 

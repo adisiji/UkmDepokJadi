@@ -1,12 +1,10 @@
 package com.asneiya.neobyte.umkmdepok.ui.util;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.asneiya.neobyte.umkmdepok.model.RSS.Rss;
 
 import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 import retrofit2.http.GET;

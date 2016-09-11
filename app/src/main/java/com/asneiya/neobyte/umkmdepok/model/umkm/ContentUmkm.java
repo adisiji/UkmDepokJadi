@@ -4,22 +4,22 @@ package com.asneiya.neobyte.umkmdepok.model.umkm;
  * Created by neobyte on 8/25/2016.
  */
 public class ContentUmkm {
-    private String nama;
+    private String nama_umkm;
     private String jen_produk;
     private String tipe;
     private String alamat;
     private String hp;
     private String pemilik;
     private String email;
-    private String logo;
+    private String logo_umkm;
     private float lon,lat;
 
     public String getLogo() {
-        return logo;
+        return logo_umkm;
     }
 
-    public void setLogo(String logo) {
-        this.logo = logo;
+    public void setLogo(String logo_umkm) {
+        this.logo_umkm = logo_umkm;
     }
 
     public String getEmail() {
@@ -79,11 +79,11 @@ public class ContentUmkm {
     }
 
     public String getNama() {
-        return nama;
+        return nama_umkm;
     }
 
     public void setNama(String nama){
-        this.nama = nama;
+        this.nama_umkm = nama;
     }
 
     public String getTipe() {

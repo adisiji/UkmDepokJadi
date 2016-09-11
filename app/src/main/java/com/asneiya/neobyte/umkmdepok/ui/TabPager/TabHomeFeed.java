@@ -33,7 +33,6 @@ public class TabHomeFeed extends Fragment {
     public static final String TAG = TabHomeFeed.class.getSimpleName();
     private RecyclerView feedRecyclerView;
     private ProgressDialog mProgressDialog;
-    private final static String url = "http://ukmdepok.co.id/feed/";
     private List<FeedItem> feedItems = new ArrayList<FeedItem>();
     private final aturKlik.itemfeed onFeedItemClickListener = new aturKlik.itemfeed() {
         @Override
