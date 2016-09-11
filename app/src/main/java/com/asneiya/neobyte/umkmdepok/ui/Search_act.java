@@ -24,6 +24,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class Search_act extends AppCompatActivity {
 
@@ -72,7 +75,12 @@ public class Search_act extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         searchRetro sR = retrofit.create(searchRetro.class);
-        Call<List<ContentUmkm>> call = sR.getKategori(x);
+        Observable<List<ContentUmkm>> rxobs = sR.getKategori(x);
+        rxobs.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe()
+
+
         //asynchronous call
         call.enqueue(new Callback<List<ContentUmkm>>() {
             @Override

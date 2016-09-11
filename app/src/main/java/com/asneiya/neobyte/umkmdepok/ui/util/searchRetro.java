@@ -4,9 +4,9 @@ import com.asneiya.neobyte.umkmdepok.model.umkm.ContentUmkm;
 
 import java.util.List;
 
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import rx.Observable;
 
 /**
  * Created by neobyte on 9/11/2016.
@@ -14,5 +14,5 @@ import retrofit2.http.Query;
 public interface searchRetro {
 
         @GET("search.php")
-        Call<List<ContentUmkm>> getKategori(@Query("kat") int kategori);
+        Observable<List<ContentUmkm>> getKategori(@Query("kat") int kategori);
 }
