@@ -9,23 +9,13 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
-import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.asneiya.neobyte.umkmdepok.R;
 import com.asneiya.neobyte.umkmdepok.model.umkm.ContentUmkm;
 import com.asneiya.neobyte.umkmdepok.ui.util.searchRetro;
-import com.asneiya.neobyte.umkmdepok.ui.util.singleVolley;
 import com.asneiya.neobyte.umkmdepok.ui.adapter.AdapterSearchResult;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,7 +87,7 @@ public class Search_act extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<ContentUmkm>> call, Throwable t) {
-
+                Log.e("ERROR",t.getMessage());
             }
         });
 
