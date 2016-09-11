@@ -20,8 +20,6 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -80,6 +78,7 @@ public class Search_act extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         searchRetro sR = retrofit.create(searchRetro.class);
+
         Observable<List<ContentUmkm>> rxobs = sR.getKategori(x);
         rxobs.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -96,7 +95,7 @@ public class Search_act extends AppCompatActivity {
                     @Override
                     public void onError(Throwable e) {
                         mProgressDialog.dismiss();
-                        Log.e("Error ",e.getMessage());
+                        Log.e(Search_act.class.getSimpleName(),"Error > "+e.getMessage());
                     }
 
                     @Override
@@ -105,5 +104,11 @@ public class Search_act extends AppCompatActivity {
                         adapt = new AdapterSearchResult(getApplicationContext(), konten);
                     }
                 });
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+
     }
 }

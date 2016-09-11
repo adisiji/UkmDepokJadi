@@ -24,9 +24,13 @@ import com.asneiya.neobyte.umkmdepok.ui.util.aturKlik;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class TabHomeFeed extends Fragment {
 
@@ -55,20 +59,30 @@ public class TabHomeFeed extends Fragment {
     }
 
     private void retroFeed(){
-        siapi().getfeeedItems().enqueue(new Callback<Rss>() {
-            @Override
-            public void onResponse(Call<Rss> call, retrofit2.Response<Rss> response) {
-                Rss respon = response.body();
-                Log.d(TAG, response.toString());
-                hasilok(respon);
-            }
+        siapi().getfeeedItems().subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Rss>() {
+                    @Override
+                    public void onCompleted() {
+                        mProgressDialog.dismiss();
+                    }
 
-            @Override
-            public void onFailure(Call<Rss> call, Throwable t) {
-                Log.d(TAG, "Error: " + t.getMessage());
-                mProgressDialog.dismiss();
-            }
-        });
+                    @Override
+                    public void onError(Throwable e) {
+                        mProgressDialog.dismiss();
+                        Log.e(TabHomeFeed.class.getSimpleName(),"Error > "+e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(Rss rss) {
+                        ItemFeedAdapter ifa = new ItemFeedAdapter(rss.channel.items,
+                                onFeedItemClickListener);
+                        // add more items to the list
+                        feedItems.addAll(rss.channel.items);
+                        feedRecyclerView.setAdapter(ifa);
+                        ifa.notifyDataSetChanged();
+                    }
+                });
     }
 
     private SimpleXMLRetro.SiteAPI siapi(){
@@ -78,15 +92,4 @@ public class TabHomeFeed extends Fragment {
         return x;
     }
 
-    private void hasilok(Rss respon){
-        mProgressDialog.dismiss();
-        if ( respon.channel != null && respon.channel.items != null) {
-            ItemFeedAdapter ifa = new ItemFeedAdapter(respon.channel.items,
-                    onFeedItemClickListener);
-            // add more items to the list
-            feedItems.addAll(respon.channel.items);
-            feedRecyclerView.setAdapter(ifa);
-            ifa.notifyDataSetChanged();
-        }
-    }
 }
