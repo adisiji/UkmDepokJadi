@@ -23,8 +23,10 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
+import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -70,34 +72,38 @@ public class Search_act extends AppCompatActivity {
         mProgressDialog.setMessage(getString(R.string.loading));
         mProgressDialog.show();
         Gson gson = new GsonBuilder().create();
+        //default network calls to be asynchronous, you need to use createWithScheduler()
+        RxJavaCallAdapterFactory rxAdapter = RxJavaCallAdapterFactory.createWithScheduler(Schedulers.io());
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
+                .addCallAdapterFactory(rxAdapter)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         searchRetro sR = retrofit.create(searchRetro.class);
         Observable<List<ContentUmkm>> rxobs = sR.getKategori(x);
         rxobs.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe()
+                .subscribe(new Observer<List<ContentUmkm>>() {
+                    @Override
+                    public void onCompleted() {
+                        Log.d("Sukses di rx ","good");
+                        rvSearch.setAdapter(adapt);
+                        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 2);
+                        rvSearch.setLayoutManager(layoutManager);
+                        mProgressDialog.dismiss();
+                    }
 
+                    @Override
+                    public void onError(Throwable e) {
+                        mProgressDialog.dismiss();
+                        Log.e("Error ",e.getMessage());
+                    }
 
-        //asynchronous call
-        call.enqueue(new Callback<List<ContentUmkm>>() {
-            @Override
-            public void onResponse(Call<List<ContentUmkm>> call, retrofit2.Response<List<ContentUmkm>> response) {
-                List<ContentUmkm> konten = new ArrayList<>(response.body());
-                adapt = new AdapterSearchResult(getApplicationContext(), konten);
-                rvSearch.setAdapter(adapt);
-                RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(), 2);
-                rvSearch.setLayoutManager(layoutManager);
-                mProgressDialog.dismiss();
-            }
-
-            @Override
-            public void onFailure(Call<List<ContentUmkm>> call, Throwable t) {
-                Log.e("ERROR",t.getMessage());
-            }
-        });
-
+                    @Override
+                    public void onNext(List<ContentUmkm> contentUmkms) {
+                        List<ContentUmkm> konten = new ArrayList<>(contentUmkms);
+                        adapt = new AdapterSearchResult(getApplicationContext(), konten);
+                    }
+                });
     }
 }

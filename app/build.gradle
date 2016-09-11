@@ -42,13 +42,18 @@ dependencies {
     compile 'com.android.support:cardview-v7:24.2.0'
     compile 'com.android.volley:volley:1.0.0'
     compile 'com.google.code.gson:gson:2.7'
+
+    //RX Android
+    compile 'io.reactivex:rxjava:1.1.6'
+    compile 'io.reactivex:rxandroid:1.2.1'
+
     //RetroFit
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.2'
     compile 'com.squareup.retrofit2:converter-simplexml:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+
     compile 'com.squareup.picasso:picasso:2.5.2'
-    //RX Android
-    compile 'io.reactivex:rxandroid:1.2.1'
-    compile 'io.reactivex:rxjava:1.1.6'
+
     compile('org.simpleframework:simple-xml:2.7.1')
 }
