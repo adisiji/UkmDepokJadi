@@ -17,9 +17,7 @@ import com.asneiya.neobyte.umkmdepok.ui.adapter.TabAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String TAG = MainActivity.class.getSimpleName();
-    private ImageLoader mImageLoader;
-    Toolbar tl;
+    private Toolbar tl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
